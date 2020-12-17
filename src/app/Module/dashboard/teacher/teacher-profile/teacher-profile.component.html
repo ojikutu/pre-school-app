@@ -1,0 +1,220 @@
+<div class="app-page-title">
+  <div class="page-title-wrapper">
+    <div class="page-title-heading">
+      <div class="page-title-icon">
+        <i class="icon {{icon}}"></i>
+      </div>
+      <div>
+        {{profileDetails}}
+        <div class="page-title-subheading">
+          {{subheading}}
+        </div>
+      </div>
+    </div>
+    <div class="page-title-actions">
+      <button type="button" (click)="openModal(teacherAssignModal)" class="btn-shadow d-inline-flex align-items-center btn btn-success">
+        <fa-icon [icon]="faPlus" class="mr-2"></fa-icon>
+        Assign New Class
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #teacherAssignModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Create Class</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="classAssignmentForm" class="needs-validation justify-content-center align-items-center" novalidate (ngSubmit)="assignClass()">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Select Class</label>
+        </div>
+        <select formControlName="_class_uid" class="custom-select" id="inputGroupSelect01">
+          <option selected >Choose...</option>
+          <option *ngFor="let data of allSchoolClass" value="{{data._source._uid + '.^.' + data._source._name}}">{{data._source._name}}</option>
+        </select>
+      </div>
+      <div class="button-row">
+        <button *ngIf="!formSubmitted" [disabled]="!classAssignmentForm.valid" type="submit" class="btn-icon btn btn-success btn-sm mr-2 mb-2">Assign Class</button>
+        <button *ngIf="formSubmitted" class="btn-icon btn btn-success btn-sm mr-2 mb-2" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Assigning Classroom...
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div class="row">
+  <div class="col-md-12 col-lg-6 col-xl-4">
+    <div class="card-shadow-primary card-border mb-3 card">
+      <div class="dropdown-menu-header">
+        <div class="dropdown-menu-header-inner bg-dark">
+          <div class="menu-header-content">
+            <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+              <div class="avatar-icon">
+                <img src="./assets/images/avatars/6.jpg" alt="Avatar 5">
+              </div>
+            </div>
+            <div *ngIf="!editState">
+              <h5 class="menu-header-title">{{teacherFirstName}} {{teacherLastName}}</h5>
+              <h6 class="menu-header-subtitle">{{teacherEmail}}</h6>
+              <div class="menu-header-btn-pane pt-1">
+                <div class="button-row">
+                  <button *ngIf="!editState" (click)="updateState();" class="btn-icon btn btn-warning btn-sm">Edit Profile</button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="editState">
+              <form [formGroup]="profileUpdate" class="needs-validation justify-content-center align-items-center" novalidate (ngSubmit)="updateProfile()">
+                <div class="position-relative form-group">
+                  <label for="firstName" class="sr-only">First Name</label>
+                  <input formControlName="_firstName" id="firstName" placeholder="First Name" type="text" class="mr-2 form-control">
+                </div>
+                <div class="position-relative form-group">
+                  <label for="lastName" class="sr-only">Last Name</label>
+                  <input formControlName="_lastName" id="lastName" placeholder="First Name" type="text" class="mr-2 form-control">
+                </div>
+                <div class="position-relative form-group">
+                  <label for="email" class="sr-only">Email Address</label>
+                  <input formControlName="_email" id="email" placeholder="Email Address" type="email" class="mr-2 form-control">
+                </div>
+                <div class="menu-header-btn-pane pt-1">
+                  <div *ngIf="editState" class="button-row">
+                    <button (click)="editState = !editState" class="btn-icon btn btn-outline-light btn-sm mr-2 mb-2">Cancel</button>
+                    <button *ngIf="!formSubmitted" [disabled]="!profileUpdate.valid" type="submit" class="btn-icon btn btn-success btn-sm mr-2 mb-2">Update Profile</button>
+                    <button *ngIf="formSubmitted" class="btn-icon btn btn-success btn-sm mr-2 mb-2" type="button" disabled>
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                      Updating...
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-3">
+        <h6 class="text-muted text-uppercase font-size-md opacity-5 font-weight-normal">Assigned Classes</h6>
+        <div *ngIf="classList.length < 1 else classDisplay">
+          <h5>No assigned classes.</h5>
+        </div>
+        <ng-template #classDisplay>
+          <ul class="rm-list-borders list-group list-group-flush" *ngFor="let data of classList; index as i">
+            <li *ngIf="data !== undefined" class="list-group-item">
+              <div class="widget-content p-0">
+                <div class="widget-content-wrapper">
+                  <div class="widget-content-left mr-3">
+                    <fa-icon [icon]="faUniversity"></fa-icon>
+                  </div>
+                  <div class="widget-content-left">
+                    <div class="widget-heading">{{data._source._name}}</div>
+                  </div>
+                  <div class="widget-content-right">
+                    <div class="font-size-xlg text-muted">
+                      <small placement="top" ngbTooltip="Remove From Class" class="text-danger pl-2">
+                        <fa-icon (click)="clickRemove(data._source._uid + '.^.' + data._source._name + '.^.' + i)" [icon]="faTimesCircle"></fa-icon>
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-lg-6 col-xl-8">
+    <div class="main-card mb-3 card p-3">
+      <fieldset class="border p-2">
+        <legend  class="w-auto">Contact Address</legend>
+        <div *ngIf="!editState else editContactDetails">
+          <fieldset class="border p-2">
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">Phone Number</div>
+                </div>
+                <div class="widget-content-right">
+                  <div class="text-muted">
+                    {{teacherPhone}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="border p-2 mt-2">
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">Contact Address</div>
+                </div>
+                <div class="widget-content-right">
+                  <div class="text-muted">
+                    {{teacherContactAddress}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="border p-2 mt-2">
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">Next Of Kin</div>
+                </div>
+                <div class="widget-content-right">
+                  <div class="text-muted">
+                    {{teacherNextOfKin}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="border p-2 mt-2">
+            <div class="widget-content p-0">
+              <div class="widget-content-wrapper">
+                <div class="widget-content-left">
+                  <div class="widget-heading">Next Of Kin Contact</div>
+                </div>
+                <div class="widget-content-right">
+                  <div class="text-muted">
+                    {{teacherNextOfKinContact}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <ng-template #editContactDetails>
+          <form [formGroup]="contactAddress" class="needs-validation justify-content-center align-items-center" novalidate (ngSubmit)="updateContact()">
+            <div class="position-relative form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <input formControlName="_phoneNumber" id="phoneNumber" placeholder="Contact Phone Number" type="text" class="form-control">
+            </div>
+            <div class="position-relative form-group">
+              <label for="contactAddress">Contact Address</label>
+              <input formControlName="_contactAddress" id="contactAddress" placeholder="Contact Address" type="text" class="form-control">
+            </div>
+            <div class="position-relative form-group">
+              <label for="nextOfKin">Next Of Kin</label>
+              <input formControlName="_nextOfKin" id="nextOfKin" placeholder="Next Of Kin" type="text" class="form-control">
+            </div>
+            <div class="position-relative form-group">
+              <label for="nextOfKinContact">Next Of Kin Contact</label>
+              <input formControlName="_nextOfKinContact" id="nextOfKinContact" placeholder="Next Of Kin" type="text" class="form-control">
+            </div>
+            <button *ngIf="!contactUpdateStatus" [disabled]="!contactAddress.valid" type="submit" class="mt-1 btn btn-primary">Update Contact Info</button>
+            <button *ngIf="contactUpdateStatus" [disabled]="!contactAddress.valid" type="submit" class="mt-1 btn btn-primary">Updating ....</button>
+          </form>
+        </ng-template>
+      </fieldset>
+    </div>
+  </div>
+</div>

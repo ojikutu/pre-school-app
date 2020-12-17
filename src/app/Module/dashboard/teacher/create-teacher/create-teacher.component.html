@@ -1,0 +1,23 @@
+<form [formGroup]="createTeacherForm" class="needs-validation" novalidate (validSubmit)="submitForm()">
+  <div class="form-row">
+    <div class="col-md-12 mb-12 form-group">
+      <label for="email">Teacher's Email Address<span class="text-danger">*</span></label>
+      <input formControlName="_email" type="email" class="form-control" id="email"  placeholder="Teacher's Email" required>
+    </div>
+    <div class="col-md-12 mb-12 form-group">
+      <label for="firstName">Teacher's First Name<span class="text-danger">*</span></label>
+      <input formControlName="_firstName" type="text" class="form-control" id="firstName"  placeholder="Teacher's First Name">
+    </div>
+    <div class="col-md-12 mb-12 form-group">
+      <label for="lastName">Teacher's Last Name</label>
+      <input formControlName="_lastName" type="text" class="form-control" id="lastName"  placeholder="Teacher's Last Name" >
+    </div>
+    <div class="btn-actions-pane-right">
+      <button *ngIf="!formState" [disabled]="!createTeacherForm.valid" type="submit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Submit</button>
+      <button *ngIf="formState" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        Sending Invitation...
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,132 @@
+<div class="app-page-title">
+  <div class="page-title-wrapper">
+    <div class="page-title-heading">
+      <div class="page-title-icon">
+        <i class="icon {{icon}}"></i>
+      </div>
+      <div>
+        {{heading}}
+        <div class="page-title-subheading">
+          {{subheading}}
+        </div>
+      </div>
+    </div>
+    <div class="page-title-actions">
+      <button [disabled]="processingKey" *ngIf="!generateClassCode" type="button" (click)="getKey()" class="btn-shadow mr-3 btn btn-dark">
+        <fa-icon *ngIf="!processingKey" [icon]="faAsterisk" class="mr-2"></fa-icon>
+        <fa-icon *ngIf="processingKey" [icon]="faSpinner" class="mr-2"></fa-icon>
+        Generate Class Code
+      </button>
+      <button type="button" (click)="openModal(addStudents)" class="btn-shadow mr-3 btn btn-dark">
+        <fa-icon  [icon]="faPlus" class="mr-2"></fa-icon>
+        Add Students
+      </button>
+      <button type="button" (click)="openModal(uploadCsv)" class="btn-shadow d-inline-flex align-items-center btn btn-success">
+        <fa-icon [icon]="faUpload" class="mr-2"></fa-icon>
+        Upload Students
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #uploadCsv let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Upload Students</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-upload-student (studentData)="studentData($event)"></app-upload-student>
+  </div>
+</ng-template>
+
+<ng-template #addStudents let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Add Students</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="addMore" class="needs-validation" novalidate (ngSubmit)="createStudents()">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-sm-12 table-responsive" formArrayName="itemRows">
+          <table class="table">
+            <thead class="padding-top-5 align-middle mb-0 table table-borderless table-striped table-hover">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th><button *ngIf="addMore.controls.itemRows.controls.length < 6" type="button" (click)="addNewRow()" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i></button></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let itemrow of addMore.controls.itemRows['controls']; let i=index"  [formGroupName]="i">
+              <td><input type="text" class="form-control" formControlName="_firstName" required></td>
+              <td><input type="text" class="form-control" formControlName="_lastName" required></td>
+              <td>
+                <fa-icon (click)="deleteRow(i)" *ngIf="addMore.controls.itemRows.controls.length > 1" [icon]="faMinus" class="btn btn-danger"></fa-icon>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button *ngIf="addMore.controls.itemRows.controls.length > 3" type="button" (click)="addNewRow()" class="btn btn-primary mr-auto"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+      <button *ngIf="!formSubmitted" [disabled]="!addMore.valid" class="btn btn-success btn-lg" type="submit">Create Student Profile<span *ngIf="addMore.controls.itemRows.controls.length > 1">s</span></button>
+      <button *ngIf="formSubmitted" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        Please wait ...
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<div class="row">
+  <div class="col-lg-12 col-xl-12">
+    <div class="main-card mb-3 card">
+      <div *ngIf="!loadingStudents else studentTable" class="h-sm d-flex justify-content-center align-items-center">
+        <app-content-loader></app-content-loader>
+      </div>
+
+      <ng-template #studentTable>
+        <div class="p-5 table-responsive">
+          <table datatable class="padding-top-5 align-middle mb-0 table table-borderless table-striped table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student Name</th>
+                <th>Badges</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of allStudentProfile; index as i">
+                <td>{{i + 1}}</td>
+                <td>
+                  <div class="widget-content p-0">
+                    <div class="widget-content-wrapper">
+                      <div class="widget-content-left mr-3">
+                        <div class="widget-content-left">
+                          <fa-icon [icon]="faUniversity" size="lg"></fa-icon>
+                        </div>
+                      </div>
+                      <div class="widget-content-left flex2">
+                        <div class="widget-heading">
+                          <a [routerLink]="['/app/classes/students/'+classUid+'/profile/'+data._source._uid]">{{data._source._firstName}} {{data._source._lastName}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>

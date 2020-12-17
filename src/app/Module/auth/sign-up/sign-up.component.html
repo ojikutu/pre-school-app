@@ -1,0 +1,103 @@
+<div class="h-100">
+  <div class="row h-100 no-gutters">
+    <div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 col-lg-7">
+      <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+        <div class="app-logo"></div>
+        <h4 *ngIf="!emailActivation">
+          <div>Welcome,</div>
+          <span>It only takes a <span class="text-success">few seconds</span> to create your account</span>
+        </h4>
+        <div *ngIf="!emailActivation else activateEmail">
+          <form [formGroup]="signUpForm" class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-6">
+                <fieldset class="form-group">
+                  <div tabindex="-1" role="group">
+                    <label for="firstName"><span class="text-danger">*</span>First Name</label>
+                    <input id="firstName" formControlName="_firstName" type="text" placeholder="First Name..." class="form-control" required>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-md-6">
+                <fieldset class="form-group">
+                  <div tabindex="-1" role="group">
+                    <label for="lastName"><span class="text-danger">*</span>Last Name</label>
+                    <input id="lastName" formControlName="_lastName" type="text" placeholder="Last Name..." class="form-control" required>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-md-6">
+                <fieldset class="form-group">
+                  <div tabindex="-1" role="group">
+                    <label for="email"><span class="text-danger">*</span>Email</label>
+                    <input id="email" formControlName="_email" type="email" placeholder="Email ..." class="form-control" required>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="col-md-6">
+                <fieldset class="form-group">
+                  <div tabindex="-1" role="group">
+                    <label for="password"><span class="text-danger">*</span>Password</label>
+                    <input id="password" formControlName="_password" type="password" placeholder="Password..." class="form-control" required>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="mt-4 d-flex align-items-center">
+              <h5 class="mb-0">
+                Already have an account?
+                <a routerLink="/auth/sign-in" class="text-primary">Sign in</a></h5>
+              <div class="ml-auto">
+                <button *ngIf="!formSubmitted" type="submit" [disabled]="!signUpForm.valid" (click)="initiateRegister();" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Create Account </button>
+                <button *ngIf="formSubmitted" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" type="button" disabled>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  Processing...
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ng-template #activateEmail>
+          <h4>Congratulation! Account Created..... One More Thing...</h4>
+          <div>Check your email {{registrationEmail}} for an activation code.</div>
+          <form [formGroup]="accountValidation" class="needs-validation" novalidate>
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset class="form-group">
+                  <div tabindex="-1" role="group">
+                    <label for="activationCode"><span class="text-danger">*</span>Email Activation Code.</label>
+                    <input id="activationCode" formControlName="_activationCode" type="number" placeholder="Email Activation Code." class="form-control" required>
+                  </div>
+                </fieldset>
+              </div>
+              <div class="ml-auto">
+                <button *ngIf="!activatingAccount" [disabled]="!accountValidation.valid" (click)="activateAccount();" type="submit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Activate Account</button>
+                <button *ngIf="activatingAccount" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" type="button" disabled>
+                  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                  Activating Account...
+                </button>
+              </div>
+            </div>
+          </form>
+        </ng-template>
+      </div>
+    </div>
+    <div class="d-lg-flex d-xs-none col-lg-5">
+      <div class="slider-light">
+        <ngx-slick-carousel class="slick-slider slick-dotted" #slickModal="slick-carousel" [config]="slideConfig2">
+          <div ngxSlickItem>
+            <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate">
+              <div class="slider-content text-light">
+                <h3>Perfect Balance</h3>
+                <p>
+                  ArchitectUI is like a dream. Some think it's too good to be true! Extensive collection of
+                  unified Vue Bootstrap Components and Elements.
+                </p>
+              </div>
+            </div>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </div>
+</div>

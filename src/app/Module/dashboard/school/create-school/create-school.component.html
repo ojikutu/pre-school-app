@@ -1,0 +1,11 @@
+<form [formGroup]="schoolForm" class="needs-validation" novalidate (validSubmit)="submitForm()">
+  <div class="form-row">
+    <div class="col-md-12 mb-12 form-group">
+      <label for="name">School Name</label>
+      <input formControlName="_name" type="text" class="form-control" id="name"  placeholder="School Name" value="Mark" required>
+    </div>
+    <div class="btn-actions-pane-right">
+      <button type="submit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,20 @@
+<h5>School Name - {{schoolUid._name}}</h5>
+<form [formGroup]="classForm" class="needs-validation" novalidate (validSubmit)="submitForm()">
+  <div class="form-row">
+    <div class="col-md-12 mb-12 form-group">
+      <label for="name">Class Name<span class="text-danger">*</span></label>
+      <input formControlName="_name" type="text" class="form-control" id="name"  placeholder="Class Name" required>
+    </div>
+    <div class="col-md-12 mb-12 form-group">
+      <label for="teacher">Invite Teacher</label>
+      <input formControlName="_teacher_email" type="text" class="form-control" id="teacher"  placeholder="Teacher Email" >
+    </div>
+    <div class="btn-actions-pane-right">
+      <button *ngIf="!formSubmitted" [disabled]="!classForm.valid" type="submit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Submit</button>
+      <button *ngIf="formSubmitted" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        Processing...
+      </button>
+    </div>
+  </div>
+</form>

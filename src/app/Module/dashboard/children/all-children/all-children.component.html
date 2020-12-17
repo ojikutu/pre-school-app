@@ -1,0 +1,55 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="row">
+  <div class="col-lg-12 col-xl-12">
+    <div class="main-card mb-3 card">
+      <div *ngIf="!childrenLoading else childrenList" class="h-sm d-flex justify-content-center align-items-center">
+        <app-content-loader></app-content-loader>
+      </div>
+      <ng-template #childrenList>
+        <div class="p-5 table-responsive">
+          <table datatable class="padding-top-5 align-middle mb-0 table table-borderless table-striped table-hover">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>School Details</th>
+              <th>Pick Up Contact</th>
+              <th> - </th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of childrenListing">
+                <td>
+                  <div class="widget-content-keft flex2">
+                    <div class="widget-heading">
+                      <a [routerLink]="['/app/parent/child/'+data._source._uid+'/profile']">{{data._source._firstName}} {{data._source._lastName}}</a>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="widget-content-left flex2">
+                    <div class="widget-heading">
+                      {{data._source._school_name}}
+                    </div>
+                    {{data._source._class_name}}
+                  </div>
+                </td>
+                <td>
+                  <div *ngIf="data._source._pickUpContact != null else noPickUp" class="widget-content-left flex2">
+                    <div class="widget-heading">
+                      {{data._source._pickUpContact}}
+                    </div>
+                    {{data._source._pickUpCode}}
+                  </div>
+                  <ng-template #noPickUp>No pick up contact setup.</ng-template>
+                </td>
+                <td>
+                  <fa-icon [icon]="faPencil" [routerLink]="['/app/parent/child/'+data._source._uid+'/edit']" placement="top" ngbTooltip="View All Teachers" size="lg"></fa-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

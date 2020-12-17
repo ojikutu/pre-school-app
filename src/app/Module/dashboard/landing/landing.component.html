@@ -1,0 +1,230 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="row">
+  <div class="col-lg-6 col-xl-4">
+    <div class="card mb-3 widget-content">
+      <div class="widget-content-wrapper">
+        <div class="widget-content-left">
+          <div class="widget-heading">New School</div>
+          <div class="widget-subheading">Create a mew school</div>
+        </div>
+        <div class="widget-content-right">
+          <div class="widget-numbers text-success">
+            <span>
+              <a [routerLink]="" (click)="openCreateSchool(createSchool)"><i class="pe-7s-plus"></i></a>
+            </span>
+          </div>
+        </div>
+        <ng-template #createSchool let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title">Create New School</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <app-create-school (newNameAdded)="newNameAdded($event)"></app-create-school>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card mb-3 widget-content">
+      <div class="widget-content-wrapper">
+        <div class="widget-content-left">
+          <div class="widget-heading">Pending Invitations</div>
+          <div class="widget-subheading">Accept Pending Invitations.</div>
+        </div>
+        <div class="widget-content-right">
+          <a routerLink="/app/invites"><div class="widget-numbers text-success"><span>{{pendingInvites}}</span></div></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-xl-4">
+    <div class="card mb-3 widget-content">
+      <div class="widget-content-wrapper">
+        <div class="widget-content-left">
+          <div class="widget-heading">New Child</div>
+          <div class="widget-subheading">Add a new child to a school</div>
+        </div>
+        <div class="widget-content-right">
+          <div class="widget-numbers text-success"><span><i class="pe-7s-plus"></i></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-lg-5 col-xl-5">
+    <div class="card">
+      <div class="card-header-tab card-header">
+        <div class="card-header-title">
+          <i class="header-icon lnr-list icon-gradient bg-tempting-azure"> </i>
+          Today's Activities
+        </div>
+        <div class="btn-actions-pane-right">
+          <button class="btn-wide btn btn-link btn-sm">View Activities</button>
+        </div>
+      </div>
+    </div>
+    <div class="main-card card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img width="42" class="rounded-circle" src="./assets/images/avatars/1.jpg" alt="">
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">Class 1</div>
+                <div class="widget-subheading opacity-10">
+                  <span class="pr-2">
+                    <b>43</b> Activity Badges Awarded
+                  </span>
+                  <span>
+                    <b class="text-success">10</b> Birthdays
+                  </span>
+                </div>
+              </div>
+              <div class="widget-content-right">
+                <div role="group" class="btn-group-sm btn-group">
+                  <fa-icon [icon]="faSearch"></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img width="42" class="rounded-circle" src="./assets/images/avatars/1.jpg" alt="">
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">Class 2</div>
+                <div class="widget-subheading opacity-10">
+                  <span class="pr-2">
+                    <b>43</b> Activity Badges Awarded
+                  </span>
+                  <span>
+                    <b class="text-success">10</b> Birthdays
+                  </span>
+                </div>
+              </div>
+              <div class="widget-content-right">
+                <div role="group" class="btn-group-sm btn-group">
+                  <fa-icon [icon]="faSearch"></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left mr-3">
+                <img width="42" class="rounded-circle" src="./assets/images/avatars/1.jpg" alt="">
+              </div>
+              <div class="widget-content-left">
+                <div class="widget-heading">Class 3</div>
+                <div class="widget-subheading opacity-10">
+                  <span class="pr-2">
+                    <b>43</b> Activity Badges Awarded
+                  </span>
+                  <span>
+                    <b class="text-success">10</b> Birthdays
+                  </span>
+                </div>
+              </div>
+              <div class="widget-content-right">
+                <div role="group" class="btn-group-sm btn-group">
+                  <fa-icon [icon]="faSearch"></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-12 col-lg-7 col-xl-7">
+    <div *ngIf="!quickAccessReady else quickView" class="h-sm d-flex justify-content-center align-items-center">
+      <div class="loader">
+        <div class="ball-scale-multiple">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <ng-template #quickView>
+      <div class="main-card mb-3 card">
+        <div *ngIf="displayRecords.length > 0 else noRecords">
+          <div class="card-header">
+            <i class="header-icon lnr-list icon-gradient bg-tempting-azure"> </i>
+            Quick Access
+            <div *ngIf="dataFetched == 'school'" class="btn-actions-pane-right">
+              <button [routerLink]="['/app/school']" class="active btn btn-focus">All Schools</button>
+            </div>
+            <div *ngIf="dataFetched == 'class'" class="btn-actions-pane-right">
+              <button [routerLink]="['/app/classes']" class="active btn btn-focus">All Assigned Classes</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+          <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th class="text-center">
+                <span *ngIf="dataFetched == 'school'">Edit</span>
+              </th>
+              <th class="text-center">
+                <span *ngIf="dataFetched == 'school'">View</span>
+                <span *ngIf="dataFetched == 'class'">View Students</span>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of displayRecords; index as i">
+              <td>
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left mr-3">
+                      <div class="widget-content-left">
+                        <fa-icon [icon]="faUniversity" size="lg"></fa-icon>
+                      </div>
+                    </div>
+                    <div class="widget-content-left flex2">
+                      <div class="widget-heading">{{data._source._name}}</div>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="text-center">
+                <button *ngIf="dataFetched == 'school'" [routerLink]="['/app/school/details', data._source._uid]" class="mr-2 btn-icon btn-icon-only btn btn-outline-warning">
+                  <i class="pe-7s-edit btn-icon-wrapper"> </i>
+                </button>
+              </td>
+              <td class="text-center">
+                <button *ngIf="dataFetched == 'school'" [routerLink]="['/app/school/classes', data._source._uid]" class="mr-2 btn-icon btn-icon-only btn btn-outline-primary">
+                  <i class="pe-7s-search btn-icon-wrapper"> </i>
+                </button>
+                <button *ngIf="dataFetched == 'class'" [routerLink]="['/app/classes/students', data._source._uid]" class="mr-2 btn-icon btn-icon-only btn btn-outline-primary">
+                  <i class="pe-7s-search btn-icon-wrapper"> </i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+        <ng-template #noRecords>
+          <div class="h-sm d-flex justify-content-center align-items-center">
+            <b>No activities yet!</b>
+          </div>
+        </ng-template>
+      </div>
+    </ng-template>
+  </div>
+</div>

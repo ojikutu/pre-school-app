@@ -1,0 +1,13 @@
+<div class="card main-card mb-3">
+  <div class="card-header">
+    Upload Student CSV File
+  </div>
+  <div class="card-body">
+    <div class="alert alert-info" (click)="downloadCsv()">Click here to download a sample csv file.</div>
+    <div class="custom-file mb-3">
+      <input type="file" (change)="changeListener($event)" class="custom-file-input"  id="validatedCustomFile" required>
+      <label *ngIf="!formSubmitted" class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+      <label *ngIf="formSubmitted" class="custom-file-label" for="validatedCustomFile">Uploading... Please wait...</label>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<div class="row">
+  <div class="col-lg-12 col-xl-12">
+    <div class="main-card mb-3 card">
+      <div *ngIf="!dataFetching else invitationsTable" class="h-sm d-flex justify-content-center align-items-center">
+        <app-content-loader></app-content-loader>
+      </div>
+      <ng-template #invitationsTable>
+        <div class="p-5 table-responsive">
+          <table datatable [dtOptions]="dtOptions" class="padding-top-5 align-middle mb-0 table table-borderless table-striped table-hover">
+          <thead>
+          <tr>
+            <th>Invite For</th>
+            <th>Invite Type</th>
+            <th>Status</th>
+            <th>Invite Date</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of pendingInvites; index as i">
+              <td *ngIf="data._source._inviteType === 'Teacher' else parentTemplate">
+                {{data._source._school_name}}
+              </td>
+              <ng-template #parentTemplate>
+                <td>
+                  <div>{{data._source._class_name}}</div>
+                  <div>({{data._source._school_name}})</div>
+                </td>
+              </ng-template>
+              <td>
+                {{data._source._inviteType}}
+              </td>
+              <td>
+                <span *ngIf="data._source._status === true else Pending" class="text-success">Accepted</span>
+                <ng-template #Pending>
+                  <span class="text-warning">Pending</span>
+                </ng-template>
+              </td>
+              <td>{{data._source._created * 1000 | date: 'mediumDate' }}</td>
+              <td>
+                <fa-icon *ngIf="data._source._status === false" [icon]="faCheck" placement="top" (click)="acceptInvite(inviteModal, data._source._uid, i)" ngbTooltip="Accept Invitation" size="lg"></fa-icon>
+                <fa-icon *ngIf="data._source._status === true" [icon]="faCheckDouble" placement="top" ngbTooltip="Invite Accepted" class="text-success" size="lg"></fa-icon>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </ng-template>
+      <ng-template #inviteModal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title">Accept Invitation</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-accept-invites (inviteAccepted)="acceptanceStatus($event)" [acceptInvitation]="inviteUid"></app-accept-invites>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

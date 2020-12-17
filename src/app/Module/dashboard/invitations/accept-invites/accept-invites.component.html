@@ -1,0 +1,15 @@
+<form [formGroup]="form" class="needs-validation" novalidate (ngSubmit)="submitForm()">
+  <div class="form-row">
+    <div class="col-md-12 mb-12 form-group">
+      <label for="acceptanceCode">Invite Acceptance Code<span class="text-danger">*</span></label>
+      <input formControlName="_acceptanceCode" type="text" class="form-control" id="acceptanceCode"  placeholder="Invitation Acceptance Code" required>
+    </div>
+    <div class="btn-actions-pane-right">
+      <button *ngIf="!formSubmitted" [disabled]="!form.valid" type="submit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg">Submit</button>
+      <button *ngIf="formSubmitted" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" type="button" disabled>
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+        Accepting Invitation...
+      </button>
+    </div>
+  </div>
+</form>

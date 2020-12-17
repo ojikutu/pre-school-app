@@ -1,0 +1,119 @@
+<div class="app-page-title">
+  <div class="page-title-wrapper">
+    <div class="page-title-heading">
+      <div class="page-title-icon">
+        <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+          <div class="avatar-icon">
+            <img src="./assets/images/avatars/6.jpg" alt="Avatar 5">
+          </div>
+        </div>
+      </div>
+      <div>
+        {{profileFirstName}} {{profileLastName}}
+      </div>
+    </div>
+    <div class="page-title-actions">
+      <button type="button" [routerLink]="['/app/parent/children/']" class="mr-3 btn-shadow d-inline-flex align-items-center btn btn-outline-warning">
+        <fa-icon [icon]="faArrowLeft" class="mr-2"></fa-icon>
+        Back
+      </button>
+      <button *ngIf="!editState" type="button" class="btn-shadow mr-3 btn btn-dark" (click)="editProfile();">
+        <fa-icon [icon]="faPen" class="mr-2"></fa-icon>
+        Edit Profile
+      </button>
+      <button *ngIf="editState" type="button" class="btn-shadow mr-3 btn btn-outline-danger" (click)="editState = false;">
+        <fa-icon [icon]="faWindowClose" class="mr-2"></fa-icon>
+        Cancel Update
+      </button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-xl-12">
+    <div class="main-card mb-3 card">
+      <div *ngIf="!childLoading else editForm" class="h-sm d-flex justify-content-center align-items-center">
+        <app-content-loader></app-content-loader>
+      </div>
+      <ng-template #editForm>
+        <div class="col-md-12 col-lg-12 col-xl-12">
+          <fieldset class="border p-2">
+            <legend  class="w-auto">Child Information</legend>
+            <div *ngIf="!editState else profileUpdate">
+              <fieldset class="border p-2">
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left">
+                      <div class="widget-heading">Contact Address</div>
+                    </div>
+                    <div class="widget-content-right">
+                      <div class="text-muted">
+                        {{profileContactAddress}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="border p-2">
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left">
+                      <div class="widget-heading">Birthday</div>
+                    </div>
+                    <div class="widget-content-right">
+                      <div class="text-muted">
+                        {{profileBirthday * 1000 | date:'fullDate'}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <fieldset class="border p-2">
+                <div class="widget-content p-0">
+                  <div class="widget-content-wrapper">
+                    <div class="widget-content-left">
+                      <div class="widget-heading">Allergies</div>
+                    </div>
+                    <div class="widget-content-right">
+                      <div class="text-muted">
+                        {{profileAllergies}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+            <ng-template #profileUpdate>
+              <form [formGroup]="updateProfile" class="needs-validation justify-content-center align-items-center" novalidate (ngSubmit)="childProfileUpdate()">
+                <div class="position-relative form-group">
+                  <label for="address">Student Contact Address</label>
+                  <input formControlName="_address" id="address" placeholder="Student Contact Address" type="text" class="form-control">
+                </div>
+                <div class="position-relative form-group">
+                  <label for="birthday">Student Birthday</label>
+                  <div class="inline-form">
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" id="birthday" formControlName="_birthday" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
+                          <button class="btn-shadow d-inline-flex align-items-center btn btn-success" (click)="d.toggle()" type="button">
+                            <fa-icon [icon]="faCalendarAlt"></fa-icon>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="position-relative form-group">
+                  <label for="allergies">Student Allergies</label>
+                  <input formControlName="_allergies" id="allergies" placeholder="Student Contact Allergies" type="text" class="form-control">
+                </div>
+                <button *ngIf="!formSubmitted" [disabled]="!updateProfile.valid" type="submit" class="mt-1 btn btn-primary">Update Profile Details</button>
+                <button *ngIf="formSubmitted" disabled class="mt-1 btn btn-primary">Updating Profile....</button>
+              </form>
+            </ng-template>
+          </fieldset>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

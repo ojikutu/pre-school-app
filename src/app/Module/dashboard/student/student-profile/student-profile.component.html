@@ -1,0 +1,269 @@
+<div class="app-page-title">
+  <div class="page-title-wrapper">
+    <div class="page-title-heading">
+      <div class="page-title-icon">
+        <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
+          <div class="avatar-icon">
+            <img src="./assets/images/avatars/6.jpg" alt="Avatar 5">
+          </div>
+        </div>
+      </div>
+      <div>
+        {{profileFirstName}} {{profileLastName}}
+      </div>
+    </div>
+    <div class="page-title-actions">
+      <button *ngIf="!editState" type="button" class="btn-shadow mr-3 btn btn-dark" (click)="editProfile();">
+        <fa-icon [icon]="faPen" class="mr-2"></fa-icon>
+        Edit Profile
+      </button>
+      <button *ngIf="editState" type="button" class="btn-shadow mr-3 btn btn-outline-danger" (click)="editState = false;">
+        <fa-icon [icon]="faWindowClose" class="mr-2"></fa-icon>
+        Cancel Update
+      </button>
+      <button *ngIf="!parentStatus" type="button" (click)="openModal(inviteParent)" class="btn-shadow mr-3 btn btn-outline-warning">
+        <fa-icon [icon]="faMailBulk" class="mr-2"></fa-icon>
+        Invite Parent
+      </button>
+      <button type="button" (click)="openModal(changeClassModal, 'changeClass')" class="btn-shadow d-inline-flex align-items-center btn btn-success">
+        <fa-icon [icon]="faPlus" class="mr-2"></fa-icon>
+        Change Class
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #changeClassModal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Change Class</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="changeClass" class="needs-validation justify-content-center align-items-center" novalidate (ngSubmit)="changeStudentClass()">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">Select Class</label>
+        </div>
+        <select formControlName="_new_class_uid" class="custom-select" id="inputGroupSelect01">
+          <option selected >Choose...</option>
+          <option *ngFor="let data of schoolRelatedClasses" value="{{data._source._uid}}">{{data._source._name}}</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect02">Select Action</label>
+        </div>
+        <select formControlName="_action" class="custom-select" id="inputGroupSelect02">
+          <option selected >Choose...</option>
+          <option *ngFor="let data of classChangeSettings;" value="{{data}}">{{data}}</option>
+        </select>
+      </div>
+      <div class="button-row">
+        <button *ngIf="!formSubmitted" [disabled]="!changeClass.valid" type="submit" class="btn-icon btn btn-success btn-sm mr-2 mb-2">Change Student Class</button>
+        <button *ngIf="formSubmitted" class="btn-icon btn btn-success btn-sm mr-2 mb-2" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Updating Class Details...
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #inviteParent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Invite Parent</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="parentInvitation" class="needs-validation justify-content-center align-items-center" novalidate (ngSubmit)="sendInvite()">
+      <div class="position-relative form-group">
+        <label for="parent_email">Parent Email</label>
+        <input formControlName="_parent_email" id="parent_email" placeholder="Parent Email Address" type="email" class="form-control" required>
+      </div>
+      <div class="button-row">
+        <button *ngIf="!formSubmitted" [disabled]="!parentInvitation.valid" type="submit" class="btn-icon btn btn-success btn-sm mr-2 mb-2">Invite Parent</button>
+        <button *ngIf="formSubmitted" class="btn-icon btn btn-success btn-sm mr-2 mb-2" type="button" disabled>
+          <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+          Sending Parent Invitation...
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-xl-12">
+    <fieldset class="border p-2">
+      <legend  class="w-auto">Student Information</legend>
+      <div *ngIf="!editState else profileUpdate">
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">Contact Address</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{profileContactAddress}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">Birthday</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{profileBirthday * 1000 | date:'fullDate'}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">Allergies</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{profileAllergies}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <ng-template #profileUpdate>
+        <form [formGroup]="updateProfile" class="needs-validation justify-content-center align-items-center" novalidate (ngSubmit)="studentUpdate()">
+          <div class="position-relative form-group">
+            <label for="firstName">Student FirstName</label>
+            <input formControlName="_firstName" id="firstName" placeholder="Student FirstName" type="text" class="form-control" required>
+          </div>
+          <div class="position-relative form-group">
+            <label for="lastName">Student LastName</label>
+            <input formControlName="_lastName" id="lastName" placeholder="Student LastName" type="text" class="form-control" required>
+          </div>
+          <div class="position-relative form-group">
+            <label for="address">Student Contact Address</label>
+            <input formControlName="_address" id="address" placeholder="Student Contact Address" type="text" class="form-control">
+          </div>
+          <div class="position-relative form-group">
+            <label for="birthday">Student Birthday</label>
+            <div class="inline-form">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" id="birthday" formControlName="_birthday" ngbDatepicker #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn-shadow d-inline-flex align-items-center btn btn-success" (click)="d.toggle()" type="button">
+                      <fa-icon [icon]="faCalendarAlt"></fa-icon>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="position-relative form-group">
+            <label for="allergies">Student Allergies</label>
+            <input formControlName="_allergies" id="allergies" placeholder="Student Contact Allergies" type="text" class="form-control">
+          </div>
+          <button *ngIf="!formSubmitted" [disabled]="!updateProfile.valid" type="submit" class="mt-1 btn btn-primary">Update Profile Details</button>
+          <button *ngIf="formSubmitted" disabled class="mt-1 btn btn-primary">Updating Profile....</button>
+        </form>
+      </ng-template>
+    </fieldset>
+  </div>
+  <div class="col-md-12 col-lg-6 col-xl-6 mt-4">
+    <fieldset class="border p-2">
+      <legend  class="w-auto">Parent Information</legend>
+      <div>
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">Parent Name</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{parentName}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">Parent Phone</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{parentPhone}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">Parent Email</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{parentEmail}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </fieldset>
+  </div>
+  <div class="col-md-12 col-lg-6 col-xl-6 mt-4">
+    <fieldset class="border p-2">
+      <legend class="w-auto">Pick Up Contact</legend>
+      <div>
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">PickUp Name</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{pickUpName}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="border p-2">
+          <div class="widget-content p-0">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">PickUp Code</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="text-muted">
+                  {{pickUpCode}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </fieldset>
+  </div>
+</div>
