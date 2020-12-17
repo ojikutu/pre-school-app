@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: '//app.ojikutu.com'
+  url: '//app.ojikutu.ng'
 };
