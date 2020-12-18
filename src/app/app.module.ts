@@ -92,12 +92,14 @@ import { TrendModule } from 'ngx-trend';
 import {SignUpComponent} from './Module/auth/sign-up/sign-up.component';
 import {SignInComponent} from './Module/auth/sign-in/sign-in.component';
 import {ForgotComponent} from './Module/auth/forgot/forgot.component';
+import { NotFoundComponent } from './Module/auth/not-found/not-found.component';
 
 import { NotificationService } from './Core/services/notification/notification.service';
 import { ApiService } from './Core/services/api/api.service';
 import { AuthGuard } from './Core/guard/auth/auth.guard';
 import { Http } from './Core/interceptor/http/http.interceptor';
 import {DataTablesModule} from 'angular-datatables';
+import { LandingComponent } from './Module/homepage/landing/landing.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -146,6 +148,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
         SignUpComponent,
         SignInComponent,
         ForgotComponent,
+        NotFoundComponent,
+        LandingComponent
     ],
     imports: [
         BrowserModule.withServerTransition({appId: 'serverApp'}),

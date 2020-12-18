@@ -15,5 +15,8 @@ export class PageTitleComponent {
   @Input() heading;
   @Input() subheading;
   @Input() icon;
-
+  @Input() button;
+  @Input() buttonIcon;
+  @Input() buttonMessage;
+  @Input() buttonDestination;
 }

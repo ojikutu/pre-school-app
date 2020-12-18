@@ -11,5 +11,11 @@
         </div>
       </div>
     </div>
+    <div *ngIf="buttonMessage" class="page-title-actions">
+      <button type="button" routerLink="{{buttonDestination}}" class="btn-shadow mr-3 btn btn-outline-warning">
+        <fa-icon [icon]="buttonIcon" class="mr-2"></fa-icon>
+        {{buttonMessage}}
+      </button>
+    </div>
   </div>
 </div>

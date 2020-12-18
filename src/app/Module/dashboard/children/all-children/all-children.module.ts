@@ -6,6 +6,7 @@ import { AllChildrenComponent } from './all-children.component';
 import {PageTitleModule} from '../../../../Layout/Components/page-title/page-title.module';
 import {DashboardModule} from '../../dashboard.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {DataTablesModule} from 'angular-datatables';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         AllChildrenRoutingModule,
         PageTitleModule,
         DashboardModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        DataTablesModule
     ]
 })
 export class AllChildrenModule { }

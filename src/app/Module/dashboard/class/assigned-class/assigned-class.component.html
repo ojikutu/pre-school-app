@@ -1,4 +1,4 @@
-<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon" [buttonMessage]="buttonMessage" [buttonIcon]="buttonIcon" [buttonDestination]="buttonDestination"></app-page-title>
 <div class="row">
   <div class="col-lg-12 col-xl-12">
     <div class="main-card mb-3 card">
@@ -22,7 +22,11 @@
                 <div class="widget-content p-0">
                   <div class="widget-content-wrapper">
                     <div class="widget-content-left">
-                      <div class="widget-heading">{{data._source._name}}</div>
+                      <div class="widget-heading">
+                        <a [routerLink]="['/app/classes/students', data._source._uid]">
+                          {{data._source._name}}
+                        </a>
+                      </div>
                       <div class="widget-subheading opacity-10">
                         <div class="pr-2">
                           {{data._source._school_name}}
@@ -37,7 +41,7 @@
                   <div class="widget-content-wrapper">
                     <div class="widget-content-right mr-3">
                       <div class="widget-content-right">
-                        <fa-icon [icon]="faUser" placement="top" ngbTooltip="View Students" size="lg"></fa-icon>
+                        <fa-icon [routerLink]="['/app/classes/students', data._source._uid]" [icon]="faUser" placement="top" ngbTooltip="View Students" size="lg"></fa-icon>
                       </div>
                     </div>
                   </div>

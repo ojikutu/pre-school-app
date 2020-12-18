@@ -12,6 +12,10 @@
       </div>
     </div>
     <div class="page-title-actions">
+      <button type="button" routerLink="/app/school" class="btn-shadow mr-3 btn btn-outline-warning">
+        <fa-icon [icon]="faArrowLeft" class="mr-2"></fa-icon>
+        Back
+      </button>
       <button type="button" routerLink="/app/classes" class="btn-shadow mr-3 btn btn-dark">
         View Assigned Classes
       </button>
@@ -80,7 +84,7 @@
                       <div class="widget-content-right">
                         <fa-icon [routerLink]="['/app/classes/students', data._source._uid]" [icon]="faUser" placement="top" ngbTooltip="View Students" size="lg"></fa-icon>
                         &nbsp; &nbsp;
-                        <fa-icon [icon]="faCog" placement="top" ngbTooltip="Class Settings" class="text-warning" size="lg"></fa-icon>
+<!--                        <fa-icon [icon]="faCog" placement="top" ngbTooltip="Class Settings" class="text-warning" size="lg"></fa-icon>-->
                       </div>
                     </div>
                   </div>

@@ -154,11 +154,6 @@ export class StudentProfileComponent implements OnInit {
     }
   }
 
-  ngOnDestroy = (): void => {
-    this.ngUnsubscribe$.next();
-    this.ngUnsubscribe$.complete();
-  }
-
   openModal(modalTarget: any, value  = '') {
     if (value === 'changeClass') {
       console.log('Called.');
@@ -236,5 +231,10 @@ export class StudentProfileComponent implements OnInit {
           }
         }, () => { this.formSubmitted = false; });
     }
+  }
+
+  ngOnDestroy = (): void => {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }

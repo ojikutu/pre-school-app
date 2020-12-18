@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ApiAuthenticationService } from '../../../../Core/services/api/api-authentication.service';
 import { NotificationService } from '../../../../Core/services/notification/notification.service';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faPlus} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-all-teachers',
@@ -20,6 +20,7 @@ export class AllTeachersComponent implements OnInit {
   recordsRetrieved: object;
 
   faPlus = faPlus;
+  faArrowLeft = faArrowLeft;
 
   schoolUid = {
     _uid: null,

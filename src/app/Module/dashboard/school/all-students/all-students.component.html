@@ -1,0 +1,47 @@
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon" [buttonMessage]="buttonMessage" [buttonDestination]="buttonDestination" [buttonIcon]="buttonIcon"></app-page-title>
+<div class="row">
+  <div class="col-lg-12 col-xl-12">
+    <div class="main-card mb-3 card">
+      <div *ngIf="!loadingStudentProfiles else studentProfileLoaded" class="h-sm d-flex justify-content-center align-items-center">
+        <app-content-loader></app-content-loader>
+      </div>
+      <ng-template #studentProfileLoaded>
+        <div class="p-5 table-responsive">
+          <table datatable class="padding-top-5 align-middle mb-0 table table-borderless table-striped table-hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Student Details</th>
+              <th>Class Details</th>
+              <th>Parent Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let data of studentRecords; index as i;">
+              <td>{{i + 1}}</td>
+              <td>
+                {{data._source._firstName}} {{data._source._lastName}}
+                <fieldset class="border p-2 mt-2">
+                  Allergies - {{data._source._allergies}} <br>
+                  Address - {{data._source._address}}
+                </fieldset>
+              </td>
+              <td>
+                {{data._source._class_name}}
+              </td>
+              <td>
+                <div *ngIf="data._source._parent._uid else noParentProfile">
+                  {{data._source._parent._name}} <br>
+                  Email - {{data._source._parent._email}}<br>
+                  Address - {{data._source._parent._address}}<br>
+                </div>
+                <ng-template #noParentProfile> - </ng-template>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

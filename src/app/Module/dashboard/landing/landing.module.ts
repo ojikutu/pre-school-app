@@ -7,17 +7,21 @@ import {PageTitleModule} from '../../../Layout/Components/page-title/page-title.
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {SchoolEditModule} from '../school/school-edit/school-edit.module';
 import {DashboardModule} from '../dashboard.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgBootstrapFormValidationModule} from 'ng-bootstrap-form-validation';
 
 
 @NgModule({
   declarations: [LandingComponent],
-  imports: [
-    CommonModule,
-    LandingRoutingModule,
-    PageTitleModule,
-    FontAwesomeModule,
-    SchoolEditModule,
-    DashboardModule
-  ]
+    imports: [
+        CommonModule,
+        LandingRoutingModule,
+        PageTitleModule,
+        FontAwesomeModule,
+        SchoolEditModule,
+        DashboardModule,
+        ReactiveFormsModule,
+      NgBootstrapFormValidationModule
+    ]
 })
 export class LandingModule { }

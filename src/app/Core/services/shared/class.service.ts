@@ -38,6 +38,14 @@ export class ClassService {
     });
   }
 
+  allSchoolStudents = (schoolUid: string): Observable<ApiInterface> => {
+    return this.apiAuthenticationService.fetch(this.studentEndpoint, {
+      _searchFilter: JSON.stringify({
+        _school_uid: schoolUid
+      })
+    });
+  }
+
   classDetails = (classUid: string): Observable<ApiInterface> => {
     return this.apiAuthenticationService.fetch(this.classEndpoint, {
       _searchFilter: JSON.stringify({

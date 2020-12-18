@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { ApiAuthenticationService } from '../../../../Core/services/api/api-authentication.service';
-import {faBars, faChild, faCog, faPlus, faTrash, faUniversity, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faBars, faChild, faCog, faPlus, faTrash, faUniversity, faUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-all-schools',
@@ -20,6 +20,9 @@ export class AllSchoolsComponent implements OnInit {
   heading = 'Schools';
   subheading = 'School Management.';
   icon = 'pe-7s-display2 icon-gradient bg-mean-fruit';
+  buttonMessage = 'Dashboard';
+  buttonIcon = faArrowLeft;
+  buttonDestination = '/app/landing';
 
   faUniversity = faUniversity;
   faPlus = faPlus;

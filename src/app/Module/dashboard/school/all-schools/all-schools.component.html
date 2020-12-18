@@ -1,4 +1,4 @@
-<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon"></app-page-title>
+<app-page-title [heading]="heading" [subheading]="subheading" [icon]="icon" [buttonMessage]="buttonMessage" [buttonIcon]="buttonIcon" [buttonDestination]="buttonDestination"></app-page-title>
 <div class="row">
   <div class="col-lg-12 col-xl-12">
     <div class="main-card mb-3 card">
@@ -54,7 +54,7 @@
                         &nbsp;&nbsp;
                         <fa-icon [icon]="faUser" [routerLink]="['/app/school/teachers/'+data._source._uid]" placement="top" ngbTooltip="View All Teachers" size="lg"></fa-icon>
                         &nbsp;&nbsp;
-                        <fa-icon [icon]="faChild" placement="top" ngbTooltip="View All Students" size="lg"></fa-icon>
+                        <fa-icon [icon]="faChild" [routerLink]="['/app/school/students/'+data._source._uid]" placement="top" ngbTooltip="View All Students" size="lg"></fa-icon>
                         &nbsp;&nbsp;
                         <fa-icon [icon]="faCog" [routerLink]="['/app/school/details/'+data._source._uid]" placement="top" ngbTooltip="School Settings" class="text-warning" size="lg"></fa-icon>
                         &nbsp;&nbsp;

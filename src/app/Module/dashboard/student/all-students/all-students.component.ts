@@ -1,10 +1,11 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
-import {faAsterisk, faMinus, faPlus, faSpinner, faUniversity, faUpload} from '@fortawesome/free-solid-svg-icons';
+import {faAsterisk, faMinus, faPlus, faSpinner, faUniversity, faUpload, faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {FormGroup, FormArray, FormBuilder, Validators, Form} from '@angular/forms';
+import { Location } from '@angular/common';
 
 import {ClassService} from '../../../../Core/services/shared/class.service';
 import {NotificationService} from '../../../../Core/services/notification/notification.service';
@@ -28,6 +29,7 @@ export class AllStudentsComponent implements OnInit {
   faUniversity = faUniversity;
   faAsterisk = faAsterisk;
   faSpinner = faSpinner;
+  faArrowLeft = faArrowLeft;
 
   classUid: string;
   ngUnsubscribe$ = new Subject();
@@ -46,7 +48,8 @@ export class AllStudentsComponent implements OnInit {
     private router: Router,
     private notificationService: NotificationService,
     private apiAuthenticationService: ApiAuthenticationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -209,5 +212,9 @@ export class AllStudentsComponent implements OnInit {
   ngOnDestroy = (): void => {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  back() {
+    this.location.back();
   }
 }

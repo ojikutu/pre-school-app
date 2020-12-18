@@ -49,8 +49,41 @@
           <div class="widget-subheading">Add a new child to a school</div>
         </div>
         <div class="widget-content-right">
-          <div class="widget-numbers text-success"><span><i class="pe-7s-plus"></i></span></div>
+          <div class="widget-numbers text-success">
+            <span>
+              <i (click)="openCreateSchool(newChildModal)" class="pe-7s-plus"></i>
+            </span>
+          </div>
         </div>
+
+        <ng-template #newChildModal let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title">Register New Child</h4>
+            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <form [formGroup]="classCode" class="needs-validation" novalidate (validSubmit)="validateClassCode()">
+                <div class="form-row">
+                  <div class="col-md-12 mb-12 form-group">
+                    <label for="classCode">Enter Class Code.</label>
+                    <input type="text" class="form-control" required id="classCode" formControlName="_class_code">
+                  </div>
+                  <div class="btn-actions-pane-right">
+                    <button *ngIf="!formSubmitted" [disabled]="!classCode.valid" type="submit" class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary">Submit</button>
+                    <button *ngIf="formSubmitted" class="btn-icon btn btn-success btn-sm mr-2 mb-2" type="button" disabled>
+                      <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                      Validating Code ...
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </ng-template>
+
       </div>
     </div>
   </div>

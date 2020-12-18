@@ -12,6 +12,10 @@
       </div>
     </div>
     <div class="page-title-actions">
+      <button type="button" (click)="back()" class="btn-shadow mr-3 btn btn-outline-warning">
+        <fa-icon  [icon]="faArrowLeft" class="mr-2"></fa-icon>
+        Back
+      </button>
       <button [disabled]="processingKey" *ngIf="!generateClassCode" type="button" (click)="getKey()" class="btn-shadow mr-3 btn btn-dark">
         <fa-icon *ngIf="!processingKey" [icon]="faAsterisk" class="mr-2"></fa-icon>
         <fa-icon *ngIf="processingKey" [icon]="faSpinner" class="mr-2"></fa-icon>

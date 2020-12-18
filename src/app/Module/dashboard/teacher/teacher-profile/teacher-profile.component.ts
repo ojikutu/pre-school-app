@@ -3,12 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 import { ClassService } from '../../../../Core/services/shared/class.service';
 import { NotificationService } from '../../../../Core/services/notification/notification.service';
 import { ApiAuthenticationService } from '../../../../Core/services/api/api-authentication.service';
 
-import {faAngleUp, faDotCircle, faPlus, faTimesCircle, faUniversity} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faDotCircle, faPlus, faTimesCircle, faUniversity} from '@fortawesome/free-solid-svg-icons';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -24,7 +25,8 @@ export class TeacherProfileComponent implements OnInit {
     private classService: ClassService,
     private notificationService: NotificationService,
     private apiAuthenticationService: ApiAuthenticationService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private location: Location
   ) { }
 
   editState: boolean;
@@ -50,7 +52,7 @@ export class TeacherProfileComponent implements OnInit {
 
   faPlus = faPlus;
   faUniversity = faUniversity;
-  faAngleUp = faAngleUp;
+  faArrowLeft = faArrowLeft;
   faDotCircle = faDotCircle;
   faTimesCircle = faTimesCircle;
 
@@ -269,5 +271,9 @@ export class TeacherProfileComponent implements OnInit {
   ngOnDestroy = (): void => {
     this.ngUnsubscribe$.next();
     this.ngUnsubscribe$.complete();
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

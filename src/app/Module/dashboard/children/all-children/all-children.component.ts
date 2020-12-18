@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { ApiAuthenticationService } from '../../../../Core/services/api/api-authentication.service';
 import { ClassService } from '../../../../Core/services/shared/class.service';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faPen} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-all-children',
@@ -15,10 +15,13 @@ export class AllChildrenComponent implements OnInit {
   heading = 'Children';
   subheading = 'Children';
   icon = 'pe-7s-display2 icon-gradient bg-mean-fruit';
+  buttonMessage = 'Dashboard';
+  buttonIcon = faArrowLeft;
+  buttonDestination = '/app/landing';
 
   childrenLoading: boolean;
   ngUnsubscribe$ = new Subject();
-  childrenListing: object;
+  childrenListing: [];
 
   faPencil = faPen;
 

@@ -7,10 +7,15 @@ import { PagesLayoutComponent } from './Layout/pages-layout/pages-layout.compone
 import {SignInComponent} from './Module/auth/sign-in/sign-in.component';
 import {SignUpComponent} from './Module/auth/sign-up/sign-up.component';
 import {ForgotComponent} from './Module/auth/forgot/forgot.component';
+import {NotFoundComponent} from './Module/auth/not-found/not-found.component';
+import {LandingComponent} from './Module/homepage/landing/landing.component';
 import {AuthGuard} from './Core/guard/auth/auth.guard';
 
 const routes: Routes = [
   {
+    path: '',
+    component: LandingComponent,
+  }, {
     path: '',
     component: BaseLayoutComponent,
     children: [
@@ -18,11 +23,6 @@ const routes: Routes = [
         path: 'app',
         loadChildren: () => import('./Module/dashboard/dashboard.module').then(m => m.DashboardModule),
         canActivate: [AuthGuard]
-      },
-      {
-        path: '',
-        redirectTo: 'auth/sign-in',
-        pathMatch: 'full'
       },
     ]
   },
@@ -42,6 +42,7 @@ const routes: Routes = [
       }
     ]
   },
+  { path: '**',   component: NotFoundComponent }
 ];
 
 @NgModule({

@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationService } from '../../../../Core/services/notification/notification.service';
 
 import { ApiAuthenticationService } from '../../../../Core/services/api/api-authentication.service';
-import {faCog, faPlus, faUser} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faPlus, faUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-all-class',
@@ -28,7 +28,7 @@ export class AllClassComponent implements OnInit {
     _name: null
   };
 
-  faCog = faCog;
+  faArrowLeft = faArrowLeft;
   faUser = faUser;
   faPlus = faPlus;
 

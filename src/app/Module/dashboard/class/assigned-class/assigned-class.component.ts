@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import {ApiAuthenticationService } from '../../../../Core/services/api/api-authentication.service';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faUser} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-assigned-class',
@@ -14,11 +14,14 @@ export class AssignedClassComponent implements OnInit {
 
   contentLoaded = false;
   ngUnsubscribe$ = new Subject();
-  classesFetched: object;
+  classesFetched: [];
 
   heading = 'Classes';
   subheading = 'Assigned Classes';
   icon = 'pe-7s-display2 icon-gradient bg-mean-fruit';
+  buttonMessage = 'Dashboard';
+  buttonIcon = faArrowLeft;
+  buttonDestination = '/app/landing';
 
   faUser = faUser;
 

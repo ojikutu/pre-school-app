@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ClassService } from '../../../../Core/services/shared/class.service';
 import {NotificationService} from '../../../../Core/services/notification/notification.service';
 import {ApiAuthenticationService} from '../../../../Core/services/api/api-authentication.service';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-school-details',
@@ -25,6 +26,10 @@ export class SchoolDetailsComponent implements OnInit {
   heading: string;
   subheading = 'Settings';
   icon = 'pe-7s-display2 icon-gradient bg-mean-fruit';
+  buttonMessage = 'Back';
+  buttonIcon = faArrowLeft;
+  buttonDestination = '/app/school';
+
   ngUnsubscribe$ = new Subject();
   schoolUid: string;
   schoolDetails = {
@@ -117,5 +122,10 @@ export class SchoolDetailsComponent implements OnInit {
           }
         });
     }
+  }
+
+  ngOnDestroy = (): void => {
+    this.ngUnsubscribe$.next();
+    this.ngUnsubscribe$.complete();
   }
 }
