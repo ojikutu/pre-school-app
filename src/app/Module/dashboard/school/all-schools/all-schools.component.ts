@@ -47,7 +47,7 @@ export class AllSchoolsComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(result => {
         // check school records fetched
-        if (result.data._details._recordsFound > 0) {
+        if (result.data !== null && result.data._details._recordsFound > 0) {
           this.displayRecords = result.data._data;
         } else { this.displayRecords = []; }
         this.fetchSchools = true;

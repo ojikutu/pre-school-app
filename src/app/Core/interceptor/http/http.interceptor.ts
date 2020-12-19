@@ -25,6 +25,7 @@ export class Http implements HttpInterceptor {
   ) {}
 
   handleError = (error: HttpErrorResponse) => {
+    console.log(error);
     this.notificationService.error({
       _title: 'Oops!!! An error occurred.',
       _message: error.error.error.message

@@ -42,13 +42,13 @@ export class LandingComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe(result => {
         // check school records fetched
-        if (result.data._details._recordsFound < 1) {
+        if (result.data === null) {
           // no school records fetched.
           // call the class endpoint
           this.apiAuthenticationService.fetch('class')
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe( (response) => {
-              if (response.data._details._recordsFound < 1) {
+              if (response.data === null) {
                 this.displayRecords = [];
               } else {
                 this.dataFetched = 'class';

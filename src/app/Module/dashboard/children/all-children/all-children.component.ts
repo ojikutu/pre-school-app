@@ -41,7 +41,7 @@ export class AllChildrenComponent implements OnInit {
       .pipe(takeUntil(this.ngUnsubscribe$))
       .subscribe((allChildren) => {
         if (allChildren.statusCode === 200) {
-          this.childrenListing = (allChildren.data._details._recordsFound > 0) ? allChildren.data._data : [];
+          this.childrenListing = (allChildren.data !== null && allChildren.data._details._recordsFound > 0) ? allChildren.data._data : [];
         }
       });
     this.childrenLoading = true;
